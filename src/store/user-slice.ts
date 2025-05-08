@@ -3,6 +3,7 @@ import {
   createSlice,
   type PayloadAction,
 } from "@reduxjs/toolkit";
+import type { AppDispatch, RootState } from ".";
 
 type UserState = {
   id: string;
@@ -18,13 +19,13 @@ const initialState: UserState = {
   token: "",
   loading: false,
 };
-export const rSetUser = createAsyncThunk(
-  "user/setUser",
-  async (user: UserState, { dispatch }) => {
-    await wait(1000);
-    dispatch(setUser(user));
-  }
-);
+export const rSetUser = createAsyncThunk.withTypes<{
+  dispatch: AppDispatch;
+  state: RootState;
+}>()("user/setUser", async (user: UserState, { dispatch }) => {
+  await wait(1000);
+  dispatch(setUser(user));
+});
 const userSlice = createSlice({
   initialState,
   reducers: {

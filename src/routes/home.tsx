@@ -1,27 +1,13 @@
-import { useAppDispatch, useAppSelector } from "../store/hook";
-import { rSetUser } from "../store/user-slice";
+import { AddForm } from "../components/add-form";
+import { useAppSelector } from "../store/hook";
 
 const Home = () => {
   const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
   return (
     <div>
       Home
       <pre>{JSON.stringify(user, null, 2)}</pre>
-      <button
-        onClick={() => {
-          dispatch(
-            rSetUser({
-              email: "a@b.com",
-              id: "1",
-              name: "test",
-              token: "token",
-            })
-          );
-        }}
-      >
-        set User data
-      </button>
+      <AddForm />
     </div>
   );
 };
